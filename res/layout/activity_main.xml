@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Start Game" />
+        android:text="Start!" />
 
     <Button
         android:id="@+id/buttonScore"
@@ -34,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="55dp"
-        android:text="Plus Claver"
+        android:text="+Clever (alpha)"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>
