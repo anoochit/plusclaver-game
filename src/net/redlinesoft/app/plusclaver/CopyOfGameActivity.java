@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GameActivity extends Activity {
+public class CopyOfGameActivity extends Activity {
 
 	// game lavel
 	private Integer GAME_LEVEL = 1;
@@ -33,7 +33,7 @@ public class GameActivity extends Activity {
 	private Integer GAME_GETANSWER = 0;
 
 	// overall time out
-	public Integer GAME_TIMEOUT = 20;
+	public Integer GAME_TIMEOUT = 5;
 	public Integer GAME_TIMETICK = 1;
 
 	// result for puls score
@@ -79,7 +79,6 @@ public class GameActivity extends Activity {
 		
 		// set all answer button to false
 		setButton(false);
-		getNewQuestion();
 		doTask();
 		
 		/*
@@ -198,8 +197,6 @@ public class GameActivity extends Activity {
 			GAME_SCORE = (int) (GAME_SCORE + (Math.pow(2, GAME_LEVEL)) + GAME_RATIO_COUNT);
 			GAME_RATIO_COUNT = GAME_RATIO_COUNT + 1;
 			GAME_RESULT = 1;
-			setButton(false);
-			getNewQuestion();
 		} else {
 			GAME_RESULT = 0;
 			stopTask();
@@ -232,17 +229,17 @@ public class GameActivity extends Activity {
 				// TODO Auto-generated method stub
 				handler.post(new Runnable() {
 					@Override
-					public void run() {						 
+					public void run() {
 						// check for timeout if not anwser then stop timer
-						// if (GAME_GETANSWER == 1) {
-						//     GAME_GETANSWER = 0;
-						//	 getNewQuestion();
-						// } else {
-						//	GAME_GETANSWER = 0;
-						//	 stopTask();
-						// }
-						if (GAME_TIMETICK==GAME_TIMEOUT)
+						if (GAME_GETANSWER == 1) {
+							GAME_GETANSWER = 0;
+							setButton(true);
+							getNewQuestion();
+							GAME_TIMETICK=0;
+						} else {
+							GAME_GETANSWER = 0;
 							stopTask();
+						}
 					}
 				});
 			}
@@ -267,8 +264,6 @@ public class GameActivity extends Activity {
 	}
 
 	public void getNewQuestion() {
-		setButton(true);
-		GAME_TIMETICK=0;
 		// get question via level
 		getQuestion(GAME_LEVEL);
 		// set data
@@ -289,7 +284,7 @@ public class GameActivity extends Activity {
 			GAME_RATIO_COUNT = 0;			
 		}		
 		// disable button
-		// setButton(false);
+		setButton(false);
 	}
 
 	@Override

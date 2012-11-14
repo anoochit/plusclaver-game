@@ -28,6 +28,11 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen" >
         </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about" android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+           
+        </activity>
     </application>
 
 </manifest>

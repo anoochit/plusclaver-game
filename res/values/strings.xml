@@ -1,9 +1,10 @@
 <resources>
 
-    <string name="app_name">+Clever (alpha)</string>
+    <string name="app_name">+Clever (beta)</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">+Clever (alpha)</string>
+    <string name="title_activity_main">+Clever (beta)</string>
     <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
 
 </resources>
