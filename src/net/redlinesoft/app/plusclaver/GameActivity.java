@@ -215,7 +215,7 @@ public class GameActivity extends Activity {
 		final AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setCancelable(false);
 		adb.setTitle("Game Over!");
-		adb.setMessage("Your score is = " + String.valueOf(GAME_SCORE)
+		adb.setMessage("Your score is " + String.valueOf(GAME_SCORE)
 				+ " , you can do better than this, try again later.");
 		adb.setPositiveButton("OK I'm Noob", new AlertDialog.OnClickListener() {
 			public void onClick(DialogInterface dialog, int arg1) {
