@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="horizontal" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textHelpTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="How to play\n--------"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/textHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Sum numbers game has simple rules and is only 1 digit number in 20 seconds. For example, the number 123456789 total of 1 +2 +3 +4 +5 +6 +7 +8 +9 was 45 and then took 4 +5 = 9 The answer is 9. Technical calculations. You can find the total number to nine, then dropped it.\n\nFor example\n\n1 +8 = 9\n2 +7 = 9\n3 +6 = 9\n4 +5 = 9\n\nNumber remaining is 9, the answer is 9.\n"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/textCreditTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Game Credit\n--------"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="40dp" />
+
+            <TextView
+                android:id="@+id/textCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Design  -  Teera  Laiteerapong\nDeveloper  -  Anuchit  Chalothorn\nTester  -  Sira  Nokyungthong\nFont  -  Arabica from Superstorefont\nServer  -  OpenShift\n\n\n- Thank you\n\n\n\n"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
