@@ -46,7 +46,7 @@ public class GameActivity extends Activity {
 	public Integer GAME_RATIO = 10;
 
 	// ratio count
-	public Integer GAME_RATIO_COUNT = 0;
+	public Integer GAME_RATIO_COUNT = 1;
 
 	Handler handler = new Handler();
 	Timer timer = new Timer();
@@ -195,7 +195,7 @@ public class GameActivity extends Activity {
 	protected void setScore(int intChoice) {
 		// TODO Auto-generated method stub 
 		if (GAME_ANSWER == intChoice) {
-			GAME_SCORE = (int) (GAME_SCORE + (Math.pow(2, GAME_LEVEL)) + GAME_RATIO_COUNT);
+			GAME_SCORE = (int) (GAME_SCORE + ((GAME_LEVEL * GAME_RATIO_COUNT) * (GAME_TIMEOUT-GAME_TIMETICK)));
 			GAME_RATIO_COUNT = GAME_RATIO_COUNT + 1;
 			GAME_RESULT = 1;
 			setButton(false);
@@ -241,8 +241,7 @@ public class GameActivity extends Activity {
 						//	GAME_GETANSWER = 0;
 						//	 stopTask();
 						// }
-						if (GAME_TIMETICK==GAME_TIMEOUT)
-							stopTask();
+						
 					}
 				});
 			}
@@ -255,7 +254,11 @@ public class GameActivity extends Activity {
 				// TODO Auto-generated method stub
 				handler.post(new Runnable() {
 					@Override
-					public void run() {				 
+					public void run() {
+							Log.d("APP", "TICK " + GAME_TIMETICK + "=" + GAME_TIMEOUT);
+							if (GAME_TIMETICK==GAME_TIMEOUT) {
+								stopTask();
+							}
 							setTimeOut(GAME_TIMETICK);							
 							GAME_TIMETICK++; 
 					}
@@ -275,7 +278,7 @@ public class GameActivity extends Activity {
 		setData2View(GAME_QUESTION);
 		// set level
 		TextView textLevel = (TextView) findViewById(R.id.textLevel);
-		textLevel.setText("L"+GAME_LEVEL+"-"+(GAME_RATIO_COUNT+1));
+		textLevel.setText("L"+GAME_LEVEL+"-"+(GAME_RATIO_COUNT));
 	}
 
 	protected void updateScoreView() {
@@ -283,8 +286,9 @@ public class GameActivity extends Activity {
 		TextView textScore = (TextView) findViewById(R.id.textScore);
 		textScore.setText(String.valueOf(GAME_SCORE));
 		GAME_GETANSWER = 1; 
+		Log.d("APP", "RATIO " + GAME_RATIO_COUNT + "=" + GAME_RATIO);
 		// check game ratio and change level
-		if (GAME_RATIO_COUNT >= GAME_RATIO) {
+		if (GAME_RATIO == GAME_RATIO_COUNT) {
 			GAME_LEVEL = GAME_LEVEL + 1;
 			GAME_RATIO_COUNT = 0;			
 		}		
@@ -297,6 +301,7 @@ public class GameActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 		timetask.cancel();
+		timeremain.cancel(); 
 		finish();
 	}
 
@@ -305,6 +310,7 @@ public class GameActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onStop();
 		timetask.cancel();
+		timeremain.cancel(); 
 		finish();
 	}
 
