@@ -7,16 +7,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+import android.app.Dialog;
+import android.content.Context;
+ 
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.View.OnClickListener;
 
 public class GameActivity extends Activity {
 
@@ -212,6 +215,7 @@ public class GameActivity extends Activity {
 		setButton(false);
 		timetask.cancel();
 		timeremain.cancel(); 
+		/*
 		final AlertDialog.Builder adb = new AlertDialog.Builder(this);
 		adb.setCancelable(false);
 		adb.setTitle("Game Over!");
@@ -223,7 +227,42 @@ public class GameActivity extends Activity {
 			}
 		});
 		adb.show();
+		*/
+		final Context context = this;
+		 
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setCancelable(false);
+		dialog.setContentView(R.layout.score_layout);
+		
+		TextView textScore = (TextView) dialog.findViewById(R.id.textScore);
+		textScore.setTypeface(face);
+		textScore.setText(String.valueOf(GAME_SCORE));
+		
+		TextView textScoreTitle = (TextView) dialog.findViewById(R.id.textScoreTitle);
+		textScoreTitle.setTypeface(face);
+		
+		TextView textScoreSolute = (TextView) dialog.findViewById(R.id.TextScoreSolute);
+		textScoreSolute.setTypeface(face);
+		
+		Button buttonTryAgain = (Button) dialog.findViewById(R.id.buttonTryAgain);
+		buttonTryAgain.setTypeface(face);
+		 
+		buttonTryAgain.setOnClickListener(new OnClickListener() {
+ 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialog.dismiss();
+				finish();
+			}
+			 
+		});
+		
+		dialog.show();
+		
 	}
+	 
 
 	public void doTask() {
 		timetask = new TimerTask() {

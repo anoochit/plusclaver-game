@@ -16,8 +16,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE IF NOT EXISTS item (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING,score INTEGER)");
-		db.execSQL("CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,name TEXT NOT NULL,score INTEGER)");		
-		db.execSQL("INSERT IF NOT EXISTS INTO config VALUES (1,'noname',0)");
 		Log.d("DB", "Create Table Successfully.");
 	}
 
@@ -27,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 	
 	 
-	public long InsertItem(Integer itemId,String strTitle, String strVideoId, String strLocation) {
+	public long InsertItem(Integer itemId,String strTitle, Integer intScore) {
 		try {
 			SQLiteDatabase db;
 			db = this.getWritableDatabase(); // Write Data
@@ -35,8 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			ContentValues Val = new ContentValues();
 			Val.put("id", itemId);			
 			Val.put("title", strTitle);
-			Val.put("videoid", strVideoId);
-			Val.put("location", strLocation); 
+			Val.put("score", intScore); 
 			
 			long rows = db.insert("item", null, Val);
 
