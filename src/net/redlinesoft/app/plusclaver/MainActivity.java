@@ -33,10 +33,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main); 
-        
-        // play sound
-        playSound(R.raw.song);
-         
+      
         // set typeface for text all game
         face=Typeface.createFromAsset(getAssets(),"fonts/Arabica.ttf");
         
@@ -116,7 +113,6 @@ public class MainActivity extends Activity {
         Button buttScore = (Button) findViewById(R.id.buttonScore);        
         buttScore.setTypeface(face);
         buttScore.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -130,21 +126,19 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		 
 	}
 
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		
 	}
 
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
-		stopSound();
+		//stopSound();
 		finish();
 	}
 
@@ -169,6 +163,29 @@ public class MainActivity extends Activity {
 			mMediaPlayer.release();
 		}
 	}
+	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		Log.d("APP","On Pause");
+		pauseSound();
+	}
+
+	@Override
+	protected void onPostResume() {
+		// TODO Auto-generated method stub
+		super.onPostResume();
+		Log.d("APP","On Post Pause");
+		playSound(R.raw.song);
+	}
+ 
+	private void pauseSound() {
+		if (mMediaPlayer != null) {
+			mMediaPlayer.pause();
+		}
+	}
+
 
 	public boolean checkNetworkStatus() {
 		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
