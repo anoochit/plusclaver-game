@@ -16,6 +16,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL("CREATE TABLE IF NOT EXISTS item (id INTEGER PRIMARY KEY AUTOINCREMENT, title STRING,score INTEGER)");
+		db.execSQL("CREATE TABLE IF NOT EXISTS config (id INTEGER PRIMARY KEY AUTOINCREMENT, name STRING)");
 		Log.d("DB", "Create Table Successfully.");
 	}
 
@@ -24,6 +25,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 	}
 	
+	public long InsterConfig(Integer intId,String strName) {
+		try {
+			SQLiteDatabase db;
+			db = this.getWritableDatabase(); // Write Data
+ 
+			ContentValues Val = new ContentValues();
+			Val.put("id", intId);			
+			Val.put("name", strName);
+			
+			long rows = db.insert("config", null, Val);
+
+			db.close();
+			return rows; // return rows inserted.
+
+		} catch (Exception e) {
+			return -1; 
+		}		
+	}
 	 
 	public long InsertItem(Integer itemId,String strTitle, Integer intScore) {
 		try {
@@ -102,6 +121,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	}
 	*/
+	
+	public Integer getConfigRow() {
+		// TODO Auto-generated method stub
+		try {
+			SQLiteDatabase db;
+			db = this.getReadableDatabase(); // Read Data
+			Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM config", null);
+			Log.d("DB", "SELECT count FROM config");
+			cursor.moveToFirst();
+			int count = cursor.getInt(0);
+			cursor.close();
+			return count;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 
 	public Integer getTotalRow() {
 		// TODO Auto-generated method stub

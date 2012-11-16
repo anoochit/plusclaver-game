@@ -3,6 +3,7 @@ package net.redlinesoft.app.plusclaver;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -57,12 +58,17 @@ public class GameActivity extends Activity {
 	
 	// type facce
 	Typeface face;
+	
+	private MediaPlayer mMediaPlayer = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		
+		// play sound
+		playSound(R.raw.schoolbell);
 		
 		// set typeface for text all game
 		face=Typeface.createFromAsset(getAssets(),"fonts/Arabica.ttf");
@@ -83,13 +89,7 @@ public class GameActivity extends Activity {
 		// set all answer button to false
 		setButton(false);
 		getNewQuestion();
-		doTask();
-		
-		/*
-		 * // get question via level getQuestion(GAME_LEVEL);
-		 * 
-		 * // set data setData2View(GAME_QUESTION);
-		 */
+		doTask(); 
 
 		// button lisener
 		Button buttonChoice1 = (Button) findViewById(R.id.button1);
@@ -215,19 +215,10 @@ public class GameActivity extends Activity {
 		setButton(false);
 		timetask.cancel();
 		timeremain.cancel(); 
-		/*
-		final AlertDialog.Builder adb = new AlertDialog.Builder(this);
-		adb.setCancelable(false);
-		adb.setTitle("Game Over!");
-		adb.setMessage("Your score is " + String.valueOf(GAME_SCORE)
-				+ " , you can do better than this, try again later.");
-		adb.setPositiveButton("OK I'm Noob", new AlertDialog.OnClickListener() {
-			public void onClick(DialogInterface dialog, int arg1) {
-				finish();
-			}
-		});
-		adb.show();
-		*/
+		
+		// play sound
+		playSound(R.raw.brainsplater);
+		 
 		final Context context = this;
 		 
 		final Dialog dialog = new Dialog(context);
@@ -257,13 +248,28 @@ public class GameActivity extends Activity {
 				finish();
 			}
 			 
-		});
-		
+		});		
 		dialog.show();
 		
 	}
 	 
+	
+	/*
+	 * Play Sound
+	 */
+	private void playSound(int resources) {
+		// TODO Auto-generated method stub
+		if (mMediaPlayer != null) {
+			mMediaPlayer.stop();
+			mMediaPlayer.release();
+		}
+		mMediaPlayer = MediaPlayer.create(this,resources);
+		mMediaPlayer.start(); 
+	}
 
+	/*
+	 * Do Task
+	 */
 	public void doTask() {
 		timetask = new TimerTask() {
 			@Override
@@ -294,7 +300,7 @@ public class GameActivity extends Activity {
 				handler.post(new Runnable() {
 					@Override
 					public void run() {
-							Log.d("APP", "TICK " + GAME_TIMETICK + "=" + GAME_TIMEOUT);
+							//Log.d("APP", "TICK " + GAME_TIMETICK + "=" + GAME_TIMEOUT);
 							if (GAME_TIMETICK==GAME_TIMEOUT) {
 								stopTask();
 							}
@@ -325,7 +331,7 @@ public class GameActivity extends Activity {
 		TextView textScore = (TextView) findViewById(R.id.textScore);
 		textScore.setText(String.valueOf(GAME_SCORE));
 		GAME_GETANSWER = 1; 
-		Log.d("APP", "RATIO " + GAME_RATIO_COUNT + "=" + GAME_RATIO);
+		//Log.d("APP", "RATIO " + GAME_RATIO_COUNT + "=" + GAME_RATIO);
 		// check game ratio and change level
 		if (GAME_RATIO == GAME_RATIO_COUNT) {
 			GAME_LEVEL = GAME_LEVEL + 1;
@@ -420,7 +426,7 @@ public class GameActivity extends Activity {
 		
 		// set question
 		this.GAME_QUESTION = questionNumber;
-		Log.d("APP", "Question : " + GAME_QUESTION);
+		//Log.d("APP", "Question : " + GAME_QUESTION);
 
 		// find answer check number of lenght
 		Integer lenghtSum;
