@@ -1,5 +1,6 @@
 package net.redlinesoft.app.plusclaver;
 
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public class MainActivity extends Activity {
 	
 	// type facce
 	Typeface face;
+	
+	private MediaPlayer mMediaPlayer = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main); 
         
+        // play sound
+        playSound(R.raw.song);
+         
         // set typeface for text all game
         face=Typeface.createFromAsset(getAssets(),"fonts/Arabica.ttf");
         
@@ -120,6 +126,50 @@ public class MainActivity extends Activity {
         
     }
     
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		 
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		stopSound();
+		finish();
+	}
+
+	/*
+	 * Play Sound
+	 */
+	private void playSound(int resources) {
+		// TODO Auto-generated method stub
+		if (mMediaPlayer != null) {
+			mMediaPlayer.stop();
+			mMediaPlayer.release();
+		}
+		mMediaPlayer = MediaPlayer.create(this,resources);
+		mMediaPlayer.setLooping(true);
+		mMediaPlayer.start(); 
+	}
+	
+
+	private void stopSound() {
+		if (mMediaPlayer != null) {
+			mMediaPlayer.stop();
+			mMediaPlayer.release();
+		}
+	}
+
 	public boolean checkNetworkStatus() {
 		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager

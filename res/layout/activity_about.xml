@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="Design  -  Teera  Laiteerapong\nDeveloper  -  Anuchit  Chalothorn\nTester  -  Sira  Nokyungthong\nFont  -  Arabica from Superstorefont\nServer  -  OpenShift\n\n\n- Thank you\n\n\n\n"
+				android:text="Design  -  Teera  Laiteerapong\nDeveloper  -  Anuchit  Chalothorn\nTester  -  Sira  Nokyungthong\nFont  -  Arabica from Superstorefont\nSound Effect  -  Brains Splatter, Island Mallets and School Bell\nServer  -  OpenShift\n\n\n- Thank you\n\n\n\n"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </ScrollView>

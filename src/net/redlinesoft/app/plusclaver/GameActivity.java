@@ -266,6 +266,7 @@ public class GameActivity extends Activity {
 		mMediaPlayer = MediaPlayer.create(this,resources);
 		mMediaPlayer.start(); 
 	}
+	
 
 	/*
 	 * Do Task
