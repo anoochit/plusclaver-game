@@ -1,9 +1,29 @@
 package net.redlinesoft.app.plusclaver;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import net.redlinesoft.app.plusclaver.GameActivity.PostScoreTask;
+ 
+ 
+
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -18,11 +38,17 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
 public class GameActivity extends Activity {
+	
+	public String REST_URL = "https://rest-redlinemobi.rhcloud.com/score/score/push.json";
+	public String APP_KEY = "50a6fbf03d06e50a6fbf03d106";
 
 	// game lavel
 	private Integer GAME_LEVEL = 1;
@@ -45,6 +71,8 @@ public class GameActivity extends Activity {
 
 	// question string
 	private String GAME_QUESTION = "";
+	
+	private String GAME_PLAYER = "";
 
 	// ratio for change level
 	public Integer GAME_RATIO = 10;
@@ -238,6 +266,29 @@ public class GameActivity extends Activity {
 		
 		Button buttonTryAgain = (Button) dialog.findViewById(R.id.buttonTryAgain);
 		buttonTryAgain.setTypeface(face);
+		
+		// initial database to update score
+        final DatabaseHandler myDb = new DatabaseHandler(this);
+		myDb.getWritableDatabase();
+		Log.d("APP","Check and update score...");
+		
+		long updateScore = myDb.updateConfigScore(GAME_SCORE);
+		
+		if (updateScore>0) {
+			Log.d("APP","Check network status and send score to score server");
+			// check network status
+			if (checkNetworkStatus()) {
+				Log.d("APP","Network ready.. post score"); 
+				// get player name
+				GAME_PLAYER = myDb.getNameConfig();
+				// post score
+				PostScoreTask posttask = new PostScoreTask();
+				posttask.execute();
+				
+			} else {
+				Log.d("APP","Network not ready so sory...");
+			}
+		}
 		 
 		buttonTryAgain.setOnClickListener(new OnClickListener() {
  
@@ -249,8 +300,83 @@ public class GameActivity extends Activity {
 			}
 			 
 		});		
-		dialog.show();
 		
+		Handler handler = new Handler();
+		Runnable runnable = new Runnable() {         
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				dialog.show();	
+			}
+		};
+		handler.postDelayed(runnable, 1000);   
+	}
+	
+	
+		 
+	
+	public class PostScoreTask extends AsyncTask<Void, String, Boolean> {
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			boolean result = false;
+ 
+			// Create a new HttpClient and Post Header
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httppost = new HttpPost(REST_URL);
+			StringBuilder str = new StringBuilder();
+			 
+			try {
+				// Add your data
+				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+				nameValuePairs.add(new BasicNameValuePair("name", GAME_PLAYER));
+				nameValuePairs.add(new BasicNameValuePair("appkey", APP_KEY));
+				nameValuePairs.add(new BasicNameValuePair("score", String.valueOf(GAME_SCORE)));
+				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+				// Execute HTTP Post Request
+				HttpResponse response = httpclient.execute(httppost);
+				StatusLine statusLine = response.getStatusLine();
+				
+				int statusCode = statusLine.getStatusCode();
+				
+				if (statusCode == 200) {
+					Log.d("APP","Upadte score complete");
+				} else {
+					Log.d("APP","Upadte score fail");
+				}
+				 
+				
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				Log.d("APP", "ERROR " + e.getMessage());
+				result = false;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				Log.d("APP", "ERROR " + e.getMessage());
+				result = false;
+			}
+
+			// If you want to do something on the UI use progress update
+			publishProgress("progress");
+			return result;
+		}
+
+		protected void onProgressUpdate(String... progress) {
+			StringBuilder str = new StringBuilder();
+			for (int i = 1; i < progress.length; i++) {
+				str.append(progress[i] + " ");
+			}
+		}
+	}
+	
+	
+	
+	public boolean checkNetworkStatus() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager
+				.getActiveNetworkInfo();
+		return activeNetworkInfo != null;
 	}
 	 
 	

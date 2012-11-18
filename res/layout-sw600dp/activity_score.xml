@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textViewCoreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="High Score"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="60dp" />
+
+            <TextView
+                android:id="@+id/textViewScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="120dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarScore"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxHeight="30dip"
+                android:maxWidth="30dip"
+                android:minHeight="30dip"
+                android:minWidth="30dip" />
+
+            <TextView
+                android:id="@+id/TextViewLeaderBoardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="World Leader Board"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="60dp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textViewLeaderBoard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="60dp"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

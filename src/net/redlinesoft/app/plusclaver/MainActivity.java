@@ -21,13 +21,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 public class MainActivity extends Activity {
 	
 	// type facce
 	Typeface face;
 	
 	private MediaPlayer mMediaPlayer = null;
-
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +79,8 @@ public class MainActivity extends Activity {
 		if (checkNetworkStatus()) {
 			// TODO update leaderboard data
 			Log.d("APP","Upadte leaderboard score form redmobi services");
+			// update leaderboard
+			updateLeaderBoard();
 		}
         
         
@@ -116,12 +119,24 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				Log.d("APP","Open leader board");
+				Intent intent = new Intent(MainActivity.this,ScoreActivity.class);
+		        startActivity(intent);
 			}
 		});
         
     }
     
+	private void updateLeaderBoard() {
+		// TODO Auto-generated method stub
+		final DatabaseHandler myDb = new DatabaseHandler(this);
+		
+		// load leaderboard data from services
+		
+		
+		myDb.close();
+	}
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
