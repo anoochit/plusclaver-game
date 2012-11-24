@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/button"
         android:text="Score" />
 
     <Button
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/button"
         android:text="About" />
 
     <TextView
@@ -27,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="+Clever (beta)"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="60dp" />
 
@@ -35,11 +37,11 @@
         android:id="@+id/buttonStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/button"
         android:text="Start!"
         android:textSize="30dp" />
- 
 
 </RelativeLayout>

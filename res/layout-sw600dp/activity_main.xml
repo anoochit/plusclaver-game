@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:text="Score"
-        android:textSize="30dp" />
+        android:textSize="30dp" android:background="@drawable/button"/>
 
     <Button
         android:id="@+id/buttonCredit"
@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:text="About"
-        android:textSize="30dp" />
+        android:textSize="30dp" android:background="@drawable/button"/>
 
     <TextView
         android:id="@+id/textTitle"
@@ -29,7 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:text="+Clever (beta)"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="100dp" />
 
@@ -41,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="290dp"
         android:text="Start!"
-        android:textSize="45dp" />
+        android:textSize="45dp" android:background="@drawable/button"/>
 
     <TextView
         android:id="@+id/textView1"

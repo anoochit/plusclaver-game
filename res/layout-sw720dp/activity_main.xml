@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:background="@drawable/button"
         android:text="Score"
         android:textSize="30dp" />
 
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
+        android:background="@drawable/button"
         android:text="About"
         android:textSize="30dp" />
 
@@ -29,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
-        android:text="+Clever (beta)"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="140dp" />
 
@@ -40,6 +42,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="360dp"
+        android:background="@drawable/button"
         android:text="Start!"
         android:textSize="65dp" />
 
